@@ -43,7 +43,7 @@ class Hooks {
 	/**
 	 * Register admin options defaults
 	 *
-	 * @since 3.0.0
+	 * @since 1.0.0
 	 * @access public
 	 * @static
 	 */
@@ -57,7 +57,7 @@ class Hooks {
 	/**
 	 * Register admin options tab
 	 *
-	 * @since 3.0.0
+	 * @since 1.0.0
 	 * @access public
 	 * @static
 	 */
@@ -72,7 +72,7 @@ class Hooks {
 	/**
 	 * Register options elements
 	 *
-	 * @since 3.0.0
+	 * @since 1.0.0
 	 * @access public
 	 * @static
 	 */
@@ -145,7 +145,7 @@ class Hooks {
 	/**
 	 * Add the overview page hints to the page list
 	 *
-	 * @since 3.0.0
+	 * @since 1.0.0
 	 * @access public
 	 * @static
 	 * @param array $post_states An array with all the available post states
