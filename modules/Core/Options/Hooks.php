@@ -50,6 +50,7 @@ class Hooks {
 		add_action('admin_head', __NAMESPACE__ . '\\Hooks::add_admin_styles');
 		add_action('admin_menu', __NAMESPACE__ . '\\Hooks::register_options_page', 99);
 		add_action('admin_init', __NAMESPACE__ . '\\Hooks::register_options');
+		add_filter('plugin_action_links_' . F4_EP_BASENAME, __NAMESPACE__ . '\\Hooks::add_settings_link_to_plugin_list');
 		add_filter('pre_update_option_' . F4_EP_CORE_OPTION_NAME, __NAMESPACE__ . '\\Hooks::before_update_option', 10, 3);
 		add_filter('update_option_' . F4_EP_CORE_OPTION_NAME, __NAMESPACE__ . '\\Hooks::after_update_option', 10, 3);
 	}
@@ -175,6 +176,22 @@ class Hooks {
 			F4_EP_CORE_OPTION_NAME,
 			F4_EP_CORE_OPTION_NAME
 		);
+	}
+
+	/**
+	 * Add settings link to plugin list
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @static
+	 */
+	public static function add_settings_link_to_plugin_list($links) {
+		array_push(
+			$links,
+			'<a href="' . admin_url('options-general.php?page=' . F4_EP_SLUG) . '">' . __('Settings') . '</a>'
+		);
+
+		return $links;
 	}
 
 	/**
