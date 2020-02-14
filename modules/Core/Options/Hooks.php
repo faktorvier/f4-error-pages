@@ -202,9 +202,21 @@ class Hooks {
 	 * @static
 	 */
 	public static function before_update_option($value, $old_value, $option) {
+		$fields = Helpers::get_fields();
+
 		foreach(Helpers::$defaults as $option_name => $option_default) {
 			if(!isset($value[$option_name])) {
-				$value[$option_name] = '0';
+				$value[$option_name] = null;
+
+				switch($fields[$option_name]['type']) {
+					case 'checkboxes':
+						$value[$option_name] = [];
+						break;
+
+					case 'checkbox':
+						$value[$option_name] = '0';
+						break;
+				}
 			}
 		}
 

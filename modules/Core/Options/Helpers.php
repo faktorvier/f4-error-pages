@@ -64,7 +64,7 @@ class Helpers {
 	 * @access public
 	 * @static
 	 */
-	public static function get_elements($tab) {
+	public static function get_elements($tab = null) {
 		if(self::$elements === null) {
 			self::$elements = apply_filters('F4/EP/register_options_elements', []);
 		}
@@ -76,6 +76,27 @@ class Helpers {
 		}
 
 		return $elements;
+	}
+
+	/**
+	 * Get fields
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @static
+	 */
+	public static function get_fields() {
+		$fields = [];
+
+		foreach(self::$elements as $elements_tab) {
+			foreach($elements_tab as $elements) {
+				if($elements['type'] === 'fields' && isset($elements['fields'])) {
+					$fields = array_merge($fields, $elements['fields']);
+				}
+			}
+		}
+
+		return $fields;
 	}
 
 	/**
