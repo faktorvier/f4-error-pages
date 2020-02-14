@@ -87,8 +87,9 @@ class Helpers {
 	 */
 	public static function get_fields() {
 		$fields = [];
+		$elements = self::get_elements();
 
-		foreach(self::$elements as $elements_tab) {
+		foreach($elements as $elements_tab) {
 			foreach($elements_tab as $elements) {
 				if($elements['type'] === 'fields' && isset($elements['fields'])) {
 					$fields = array_merge($fields, $elements['fields']);

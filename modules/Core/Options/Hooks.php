@@ -203,8 +203,9 @@ class Hooks {
 	 */
 	public static function before_update_option($value, $old_value, $option) {
 		$fields = Helpers::get_fields();
+		$defaults = Helpers::get_defaults();
 
-		foreach(Helpers::$defaults as $option_name => $option_default) {
+		foreach($defaults as $option_name => $option_default) {
 			if(!isset($value[$option_name])) {
 				$value[$option_name] = null;
 
