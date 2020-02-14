@@ -27,6 +27,7 @@ class Hooks {
 		add_filter('F4/EP/register_options_defaults', __NAMESPACE__ . '\\Hooks::register_options_defaults');
 		add_filter('F4/EP/register_options_elements', __NAMESPACE__ . '\\Hooks::register_options_elements');
 		add_action('F4/EP/Core/loaded', __NAMESPACE__ . '\\Hooks::loaded');
+		add_action('F4/EP/after_update_option', __NAMESPACE__ . '\\Hooks::after_update_option', 10, 3);
 	}
 
 	/**
@@ -166,6 +167,30 @@ class Hooks {
 		}
 
 		return $post_states;
+	}
+
+	/**
+	 * After option is updated
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @static
+	 */
+	public static function after_update_option($old_value, $value, $changed) {
+		// Add line to htaccess
+		$htaccess_path = ABSPATH . '.htaccess';
+
+		if(!file_exists($htaccess_path)) {
+			return;
+		}
+
+		$htaccess_content = file_get_contents($htaccess_path);
+
+		if(strpos($htaccess_content, 'ErrorDocument 403 /index.php?status=403') === false) {
+			$htaccess_content = 'ErrorDocument 403 /index.php?status=403' . PHP_EOL . PHP_EOL . $htaccess_content;
+
+			file_put_contents($htaccess_path, $htaccess_content);
+		}
 	}
 }
 
