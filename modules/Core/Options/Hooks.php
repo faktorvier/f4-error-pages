@@ -232,6 +232,8 @@ class Hooks {
 	 * @static
 	 */
 	public static function after_update_option($old_value, $value, $option) {
+		Helpers::$options = null;
+
 		$changed = [];
 
 		foreach($value as $option_name => $option_value) {
