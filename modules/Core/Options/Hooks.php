@@ -34,8 +34,8 @@ class Hooks {
 	 * @static
 	 */
 	public static function set_default_constants() {
-		if(!defined('F4_EP_CORE_OPTION_NAME')) {
-			define('F4_EP_CORE_OPTION_NAME', F4_EP_SLUG . '-settings');
+		if(!defined('F4_EP_OPTION_NAME')) {
+			define('F4_EP_OPTION_NAME', F4_EP_SLUG . '-settings');
 		}
 	}
 
@@ -51,8 +51,8 @@ class Hooks {
 		add_action('admin_menu', __NAMESPACE__ . '\\Hooks::register_options_page', 99);
 		add_action('admin_init', __NAMESPACE__ . '\\Hooks::register_options');
 		add_filter('plugin_action_links_' . F4_EP_BASENAME, __NAMESPACE__ . '\\Hooks::add_settings_link_to_plugin_list');
-		add_filter('pre_update_option_' . F4_EP_CORE_OPTION_NAME, __NAMESPACE__ . '\\Hooks::before_update_option', 10, 3);
-		add_filter('update_option_' . F4_EP_CORE_OPTION_NAME, __NAMESPACE__ . '\\Hooks::after_update_option', 10, 3);
+		add_filter('pre_update_option_' . F4_EP_OPTION_NAME, __NAMESPACE__ . '\\Hooks::before_update_option', 10, 3);
+		add_filter('update_option_' . F4_EP_OPTION_NAME, __NAMESPACE__ . '\\Hooks::after_update_option', 10, 3);
 	}
 
 	/**
@@ -173,8 +173,8 @@ class Hooks {
 	 */
 	public static function register_options() {
 		register_setting(
-			F4_EP_CORE_OPTION_NAME,
-			F4_EP_CORE_OPTION_NAME
+			F4_EP_OPTION_NAME,
+			F4_EP_OPTION_NAME
 		);
 	}
 

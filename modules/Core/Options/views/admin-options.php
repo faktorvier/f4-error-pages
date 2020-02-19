@@ -74,7 +74,7 @@ $options = Options::get();
 
 		<!-- Options form -->
 		<form method="POST" action="options.php" novalidate="novalidate">
-			<?php settings_fields(F4_EP_CORE_OPTION_NAME); ?>
+			<?php settings_fields(F4_EP_OPTION_NAME); ?>
 
 			<?php foreach($tabs as $tab_slug => $tab): ?>
 				<div

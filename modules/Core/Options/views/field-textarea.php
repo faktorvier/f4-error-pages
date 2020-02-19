@@ -6,8 +6,8 @@
 ?>
 
 <textarea
-	name="<?php echo F4_EP_CORE_OPTION_NAME; ?>[<?php echo $field_name; ?>]"
-	id="<?php echo F4_EP_CORE_OPTION_NAME . $field_name; ?>"
+	name="<?php echo F4_EP_OPTION_NAME; ?>[<?php echo $field_name; ?>]"
+	id="<?php echo F4_EP_OPTION_NAME . $field_name; ?>"
 	placeholder="<?php echo $field['placeholder']; ?>"
 	rows="<?php echo $field['rows']; ?>"
 	class="regular-text"

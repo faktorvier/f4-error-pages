@@ -3,7 +3,7 @@
 		<?php foreach($element['fields'] as $field_name => $field): ?>
 			<tr>
 				<th>
-					<label for="<?php echo F4_EP_CORE_OPTION_NAME . $field_name; ?>">
+					<label for="<?php echo F4_EP_OPTION_NAME . $field_name; ?>">
 						<?php echo $field['label']; ?>
 					</label>
 				</th>

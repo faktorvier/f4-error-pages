@@ -113,7 +113,7 @@ class Helpers {
 			$defaults = self::get_defaults();
 
 			// Get saved options
-			$options = get_option(F4_EP_CORE_OPTION_NAME, $defaults);
+			$options = get_option(F4_EP_OPTION_NAME, $defaults);
 
 			if(!is_array($options)) {
 				$options = array();

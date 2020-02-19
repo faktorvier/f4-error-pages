@@ -1,6 +1,6 @@
 <select
-	name="<?php echo F4_EP_CORE_OPTION_NAME; ?>[<?php echo $field_name; ?>]"
-	id="<?php echo F4_EP_CORE_OPTION_NAME . $field_name; ?>"
+	name="<?php echo F4_EP_OPTION_NAME; ?>[<?php echo $field_name; ?>]"
+	id="<?php echo F4_EP_OPTION_NAME . $field_name; ?>"
 >
 	<?php foreach($field['options'] as $option_value => $option_name): ?>
 		<option

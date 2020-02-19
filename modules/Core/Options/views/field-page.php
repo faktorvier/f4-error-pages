@@ -8,7 +8,7 @@
 
 <?php wp_dropdown_pages(
 		array(
-			'name' => F4_EP_CORE_OPTION_NAME . '[' . $field_name . ']',
+			'name' => F4_EP_OPTION_NAME . '[' . $field_name . ']',
 			'show_option_none' => $field['show_option_none'],
 			'option_none_value' => $field['option_none_value'],
 			'selected' => $options[$field_name],
