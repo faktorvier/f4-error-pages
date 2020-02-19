@@ -22,12 +22,14 @@ class Hooks {
 	 * @static
 	 */
 	public static function init() {
-		add_action('F4/EP/Core/set_constants', __NAMESPACE__ . '\\Hooks::set_default_constants', 99);
+		add_action('F4/EP/set_constants', __NAMESPACE__ . '\\Hooks::set_default_constants', 99);
+		add_action('F4/EP/loaded', __NAMESPACE__ . '\\Hooks::loaded');
 		add_filter('F4/EP/register_options_tabs', __NAMESPACE__ . '\\Hooks::register_options_tab', 5);
 		add_filter('F4/EP/register_options_defaults', __NAMESPACE__ . '\\Hooks::register_options_defaults');
 		add_filter('F4/EP/register_options_elements', __NAMESPACE__ . '\\Hooks::register_options_elements');
-		add_action('F4/EP/Core/loaded', __NAMESPACE__ . '\\Hooks::loaded');
-		add_action('F4/EP/after_update_option', __NAMESPACE__ . '\\Hooks::after_update_option', 10, 3);
+
+		register_activation_hook(F4_EP_MAIN_FILE, __NAMESPACE__ . '\\Hooks::plugin_activation');
+		register_deactivation_hook(F4_EP_MAIN_FILE, __NAMESPACE__ . '\\Hooks::plugin_deactivation');
 	}
 
 	/**
@@ -38,7 +40,25 @@ class Hooks {
 	 * @static
 	 */
 	public static function set_default_constants() {
+		if(!defined('F4_EP_HTACCESS_COMMENT')) {
+			define('F4_EP_HTACCESS_COMMENT', '# F4 Error Pages');
+		}
 
+		if(!defined('F4_EP_HTACCESS_RULE')) {
+			define('F4_EP_HTACCESS_RULE', 'ErrorDocument 403 /index.php?status=403');
+		}
+	}
+
+	/**
+	 * Fires once the module is loaded
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @static
+	 */
+	public static function loaded() {
+		add_action('template_redirect', __NAMESPACE__ . '\\Hooks::show_error_page');
+		add_filter('display_post_states', __NAMESPACE__ . '\\Hooks::add_overview_page_post_state', 10, 2);
 	}
 
 	/**
@@ -102,18 +122,6 @@ class Hooks {
 	}
 
 	/**
-	 * Fires once the module is loaded
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @static
-	 */
-	public static function loaded() {
-		add_action('template_redirect', __NAMESPACE__ . '\\Hooks::show_error_page');
-		add_filter('display_post_states', __NAMESPACE__ . '\\Hooks::add_overview_page_post_state', 10, 2);
-	}
-
-	/**
 	 * Show assigned error pages
 	 *
 	 * @since 1.0.0
@@ -170,14 +178,16 @@ class Hooks {
 	}
 
 	/**
-	 * After option is updated
+	 * Plugin activation
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 * @static
 	 */
-	public static function after_update_option($old_value, $value, $changed) {
-		// Add line to htaccess
+	public static function plugin_activation() {
+		self::set_default_constants();
+
+		// Add line to htaccess if not already exists
 		$htaccess_path = ABSPATH . '.htaccess';
 
 		if(!file_exists($htaccess_path)) {
@@ -186,8 +196,34 @@ class Hooks {
 
 		$htaccess_content = file_get_contents($htaccess_path);
 
-		if(strpos($htaccess_content, 'ErrorDocument 403 /index.php?status=403') === false) {
-			$htaccess_content = 'ErrorDocument 403 /index.php?status=403' . PHP_EOL . PHP_EOL . $htaccess_content;
+		if(strpos($htaccess_content, F4_EP_HTACCESS_RULE) === false) {
+			$htaccess_content = F4_EP_HTACCESS_COMMENT . PHP_EOL . F4_EP_HTACCESS_RULE . PHP_EOL . PHP_EOL . $htaccess_content;
+
+			file_put_contents($htaccess_path, $htaccess_content);
+		}
+	}
+
+	/**
+	 * Plugin deactivation
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @static
+	 */
+	public static function plugin_deactivation() {
+		self::set_default_constants();
+
+		// Remove line from htaccess if set by this plugin
+		$htaccess_path = ABSPATH . '.htaccess';
+
+		if(!file_exists($htaccess_path)) {
+			return;
+		}
+
+		$htaccess_content = file_get_contents($htaccess_path);
+
+		if(strpos($htaccess_content, F4_EP_HTACCESS_COMMENT . PHP_EOL . F4_EP_HTACCESS_RULE) !== false) {
+			$htaccess_content = str_replace(F4_EP_HTACCESS_COMMENT . PHP_EOL . F4_EP_HTACCESS_RULE . PHP_EOL . PHP_EOL, '', $htaccess_content);
 
 			file_put_contents($htaccess_path, $htaccess_content);
 		}

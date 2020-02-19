@@ -20,7 +20,7 @@ class Hooks {
 	 */
 	public static function init() {
 		add_action('plugins_loaded', __NAMESPACE__ . '\\Hooks::core_loaded');
-		add_action('F4/EP/Core/set_constants', __NAMESPACE__ . '\\Hooks::set_default_constants', 98);
+		add_action('F4/EP/set_constants', __NAMESPACE__ . '\\Hooks::set_default_constants', 98);
 	}
 
 	/**
@@ -42,8 +42,8 @@ class Hooks {
 	 * @static
 	 */
 	public static function core_loaded() {
-		do_action('F4/EP/Core/set_constants');
-		do_action('F4/EP/Core/loaded');
+		do_action('F4/EP/set_constants');
+		do_action('F4/EP/loaded');
 
 		add_action('init', __NAMESPACE__ . '\\Hooks::load_textdomain');
 	}
