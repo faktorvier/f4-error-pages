@@ -29,7 +29,6 @@ along with this plugin. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 if(!defined('ABSPATH')) exit;
 
 define('F4_EP_VERSION', '1.0.0');
-define('F4_EP_PRO', true);
 
 define('F4_EP_SLUG', 'f4-error-pages');
 define('F4_EP_MAIN_FILE', __FILE__);
