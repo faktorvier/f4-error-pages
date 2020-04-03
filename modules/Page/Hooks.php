@@ -40,8 +40,12 @@ class Hooks {
 	 * @static
 	 */
 	public static function set_default_constants() {
-		if(!defined('F4_EP_HTACCESS_COMMENT')) {
-			define('F4_EP_HTACCESS_COMMENT', '# F4 Error Pages');
+		if(!defined('F4_EP_HTACCESS_PATH')) {
+			define('F4_EP_HTACCESS_PATH', ABSPATH . '.htaccess');
+		}
+
+		if(!defined('F4_EP_HTACCESS_MARKER_NAME')) {
+			define('F4_EP_HTACCESS_MARKER_NAME', 'F4 Error Pages');
 		}
 
 		if(!defined('F4_EP_HTACCESS_RULE')) {
@@ -187,20 +191,11 @@ class Hooks {
 	public static function plugin_activation() {
 		self::set_default_constants();
 
-		// Add line to htaccess if not already exists
-		$htaccess_path = ABSPATH . '.htaccess';
-
-		if(!file_exists($htaccess_path)) {
-			return;
-		}
-
-		$htaccess_content = file_get_contents($htaccess_path);
-
-		if(strpos($htaccess_content, F4_EP_HTACCESS_RULE) === false) {
-			$htaccess_content = F4_EP_HTACCESS_COMMENT . PHP_EOL . F4_EP_HTACCESS_RULE . PHP_EOL . PHP_EOL . $htaccess_content;
-
-			file_put_contents($htaccess_path, $htaccess_content);
-		}
+		insert_with_markers(
+			F4_EP_HTACCESS_PATH,
+			F4_EP_HTACCESS_MARKER_NAME,
+			F4_EP_HTACCESS_RULE
+		);
 	}
 
 	/**
@@ -213,20 +208,11 @@ class Hooks {
 	public static function plugin_deactivation() {
 		self::set_default_constants();
 
-		// Remove line from htaccess if set by this plugin
-		$htaccess_path = ABSPATH . '.htaccess';
-
-		if(!file_exists($htaccess_path)) {
-			return;
-		}
-
-		$htaccess_content = file_get_contents($htaccess_path);
-
-		if(strpos($htaccess_content, F4_EP_HTACCESS_COMMENT . PHP_EOL . F4_EP_HTACCESS_RULE) !== false) {
-			$htaccess_content = str_replace(F4_EP_HTACCESS_COMMENT . PHP_EOL . F4_EP_HTACCESS_RULE . PHP_EOL . PHP_EOL, '', $htaccess_content);
-
-			file_put_contents($htaccess_path, $htaccess_content);
-		}
+		insert_with_markers(
+			F4_EP_HTACCESS_PATH,
+			F4_EP_HTACCESS_MARKER_NAME,
+			''
+		);
 	}
 }
 
