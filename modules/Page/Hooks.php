@@ -146,9 +146,23 @@ class Hooks {
 			}
 
 			if($error_page_id) {
+				$error_post = get_post($error_page_id);
+
 				$wp_query = null;
 				$wp_query = new \WP_Query();
-				$wp_query->query('page_id=' . $error_page_id);
+				$wp_query->parse_query();
+				// $wp_query->query['page'] = '';
+				// $wp_query->query['pagename'] = $error_post->post_name;
+				// $wp_query->set('page', 0);
+				// $wp_query->set('pagename', $error_post->post_name);
+				// $wp_query->set('name', $error_post->post_name);
+				// $wp_query->set('page_id', 0);
+				$wp_query->set('p', $error_page_id);
+				$wp_query->posts = [$error_post];
+				$wp_query->post_count = 1;
+				//$wp_query->in_the_loop = false;
+				//$wp_query->found_posts = 1;
+				//$wp_query->query('page_id=' . $error_page_id);
 				$wp_query->the_post();
 				rewind_posts();
 			}
