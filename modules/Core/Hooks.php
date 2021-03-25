@@ -59,5 +59,3 @@ class Hooks {
 		load_plugin_textdomain('f4-error-pages', false, plugin_basename(F4_EP_PATH . 'languages') . '/');
 	}
 }
-
-?>

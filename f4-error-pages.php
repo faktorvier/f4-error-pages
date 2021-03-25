@@ -62,5 +62,3 @@ F4\EP\Core\Options\Hooks::init();
 
 // Init modules
 F4\EP\Page\Hooks::init();
-
-?>

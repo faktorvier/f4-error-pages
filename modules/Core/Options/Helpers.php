@@ -136,5 +136,3 @@ class Helpers {
 		return self::$options;
 	}
 }
-
-?>

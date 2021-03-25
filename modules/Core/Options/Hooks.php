@@ -245,5 +245,3 @@ class Hooks {
 		do_action('F4/EP/after_update_option', $old_value, $value, $changed);
 	}
 }
-
-?>

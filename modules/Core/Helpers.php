@@ -213,5 +213,3 @@ class Helpers {
 		return $is_post_type;
 	}
 }
-
-?>
