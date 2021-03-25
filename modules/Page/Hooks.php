@@ -63,6 +63,11 @@ class Hooks {
 	public static function loaded() {
 		add_action('template_redirect', __NAMESPACE__ . '\\Hooks::show_error_page');
 		add_filter('display_post_states', __NAMESPACE__ . '\\Hooks::add_overview_page_post_state', 10, 2);
+
+		add_filter('wpseo_title', __NAMESPACE__ . '\\Hooks::fix_wpseo_title', 99);
+		add_filter('wpseo_opengraph_title', __NAMESPACE__ . '\\Hooks::fix_wpseo_title', 99);
+		add_filter('wpseo_metadesc', __NAMESPACE__ . '\\Hooks::fix_wpseo_description', 99);
+		add_filter('wpseo_opengraph_desc', __NAMESPACE__ . '\\Hooks::fix_wpseo_description', 99);
 	}
 
 	/**
@@ -228,6 +233,56 @@ class Hooks {
 			''
 		);
 	}
-}
 
-?>
+	/**
+	 * Fix meta title for Yoast SEO
+	 *
+	 * @since 1.0.4
+	 * @access public
+	 * @static
+	 * @param string $title The meta title.
+	 * @return string The modified meta title.
+	 */
+	public static function fix_wpseo_title($title) {
+		global $post;
+
+		if(is_404()) {
+			$yoast_title = get_post_meta($post->ID, '_yoast_wpseo_title', true);
+
+			if(empty($yoast_title)) {
+				$wpseo_titles = get_option('wpseo_titles', []);
+				$yoast_title = isset($wpseo_titles['title-' . $post->post_type]) ? $wpseo_titles['title-' . $post->post_type] : get_the_title();
+			}
+
+			return wpseo_replace_vars($yoast_title, $post);
+		}
+
+		return $title;
+	}
+
+	/**
+	 * Fix meta description for Yoast SEO
+	 *
+	 * @since 1.0.4
+	 * @access public
+	 * @static
+	 * @param string $description The meta description.
+	 * @return string The modified meta description.
+	 */
+	public static function fix_wpseo_description($description) {
+		global $post;
+
+		if(is_404()) {
+			$yoast_description = get_post_meta($post->ID, '_yoast_wpseo_metadesc', true);
+
+			if(empty($yoast_description)) {
+				$wpseo_titles = get_option('wpseo_titles', []);
+				$yoast_description = isset($wpseo_titles['metadesc-' . $post->post_type]) ? $wpseo_titles['metadesc-' . $post->post_type] : '';
+			}
+
+			return wpseo_replace_vars($yoast_description, $post);
+		}
+
+		return $description;
+	}
+}
