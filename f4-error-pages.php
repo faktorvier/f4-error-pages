@@ -4,7 +4,7 @@
 Plugin Name: F4 Error Pages
 Plugin URI: https://github.com/faktorvier/f4-error-pages
 Description: Allows you to assign pages that appear as 404 and 403 error pages.
-Version: 1.0.4
+Version: 1.0.5
 Author: FAKTOR VIER
 Author URI: https://www.faktorvier.ch
 License: GPLv2
@@ -28,7 +28,7 @@ along with this plugin. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 
 if(!defined('ABSPATH')) exit;
 
-define('F4_EP_VERSION', '1.0.4');
+define('F4_EP_VERSION', '1.0.5');
 
 define('F4_EP_SLUG', 'f4-error-pages');
 define('F4_EP_MAIN_FILE', __FILE__);

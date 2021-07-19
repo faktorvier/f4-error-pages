@@ -3,9 +3,9 @@ Contributors: faktorvier
 Donate link: https://www.faktorvier.ch/donate/
 Tags: 404, 404 page, 403, 403 page, error, error page, page not found, permission denied, forbidden, custom page, page
 Requires at least: 5.0
-Tested up to: 5.7
+Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,9 @@ Yes, absolutely!
 1. Configuration in WordPress settings
 
 == Changelog ==
+
+= 1.0.5 =
+* Support WordPress 5.8
 
 = 1.0.4 =
 * Fix notices in WooCommerce
