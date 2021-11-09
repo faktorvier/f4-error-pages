@@ -5,7 +5,7 @@ Tags: 404, 404 page, 403, 403 page, error, error page, page not found, permissio
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,9 @@ Yes, absolutely!
 1. Configuration in WordPress settings
 
 == Changelog ==
+
+= 1.0.6 =
+* Fix compatibility with Redirection plugin (thanks to marcselman for the hint)
 
 = 1.0.5 =
 * Support WordPress 5.8
