@@ -61,7 +61,7 @@ class Hooks {
 	 * @static
 	 */
 	public static function loaded() {
-		add_action('template_redirect', __NAMESPACE__ . '\\Hooks::show_error_page');
+		add_action('template_redirect', __NAMESPACE__ . '\\Hooks::show_error_page', 99);
 		add_filter('display_post_states', __NAMESPACE__ . '\\Hooks::add_overview_page_post_state', 10, 2);
 
 		add_filter('wpseo_title', __NAMESPACE__ . '\\Hooks::fix_wpseo_title', 99);
