@@ -93,7 +93,7 @@ $options = Options::get();
 	</div>
 
 	<div class="f4-options-sidebar">
-		<a class="f4-options-sidebar-link" href="https://www.faktorvier.ch" target="_blank">
+		<a class="f4-options-sidebar-link" href="https://www.f4dev.ch" target="_blank">
 			<img src="<?php echo F4_EP_URL . 'assets/img/made-with-love-by-f4.png'; ?>" alt="F4" />
 		</a>
 	</div>

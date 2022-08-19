@@ -5,7 +5,7 @@ Tags: 404, 404 page, 403, 403 page, error, error page, page not found, permissio
 Requires at least: 5.0
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ With this simple plugin you can assign custom pages (with custom content etc.) a
 == Description ==
 
 Sometimes the WordPress default error page handling is not enough, because it only shows a simple text or you have to create a custom 404 template with (more) static content.
-F4 Error Pages allows you to assign any existing page from your installation to be shown, if a page is not found or the permissions for a request is denied.
+[F4 Error Pages](https://www.f4dev.ch) allows you to assign any existing page from your installation to be shown, if a page is not found or the permissions for a request is denied.
 So you can create nice and informative error pages with your own content elements or whatever you like, fast, without overhead and unnecessary features.
 
 = Usage =
@@ -47,6 +47,9 @@ Yes, absolutely!
 1. Configuration in WordPress settings
 
 == Changelog ==
+
+= 1.0.9 =
+* Update www.f4dev.ch links
 
 = 1.0.8 =
 * Support WordPress 6.0
