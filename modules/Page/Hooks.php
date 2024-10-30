@@ -151,6 +151,14 @@ class Hooks {
 			}
 
 			if($error_page_id) {
+				if(function_exists('pll_get_post')) {
+					$error_page_lang_id = pll_get_post($error_page_id);
+
+					if($error_page_lang_id) {
+						$error_page_id = $error_page_lang_id;
+					}
+				}
+
 				$error_post = get_post($error_page_id);
 
 				$wp_query = null;
