@@ -161,23 +161,27 @@ class Hooks {
 
 				$error_post = get_post($error_page_id);
 
-				$wp_query = null;
-				$wp_query = new \WP_Query();
-				$wp_query->parse_query();
-				// $wp_query->query['page'] = '';
-				// $wp_query->query['pagename'] = $error_post->post_name;
-				// $wp_query->set('page', 0);
-				// $wp_query->set('pagename', $error_post->post_name);
-				// $wp_query->set('name', $error_post->post_name);
-				// $wp_query->set('page_id', 0);
-				$wp_query->set('p', $error_page_id);
-				$wp_query->posts = [$error_post];
-				$wp_query->post_count = 1;
-				//$wp_query->in_the_loop = false;
-				//$wp_query->found_posts = 1;
-				//$wp_query->query('page_id=' . $error_page_id);
-				$wp_query->the_post();
-				rewind_posts();
+				if($error_post) {
+					$post = $error_post;
+
+					$wp_query = new \WP_Query([
+						'page_id' => $error_page_id,
+						'post_type' => 'page',
+						'posts_per_page' => 1,
+					]);
+
+					// setup_postdata($post);
+					// $wp_query->post = $error_post;
+					// $wp_query->posts = [$error_post];
+					// $wp_query->post_count = 1;
+					// $wp_query->is_page = true;
+					// $wp_query->is_singular = true;
+					// $wp_query->is_home = false;
+					// $wp_query->is_archive = false;
+					// $wp_query->is_category = false;
+					// $wp_query->queried_object = $error_post;
+					// $wp_query->queried_object_id = $error_post->ID;
+				}
 			}
 		}
 	}
